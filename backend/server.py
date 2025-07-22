@@ -262,8 +262,8 @@ async def get_transactions():
     
     result = []
     for transaction in transactions:
-        book = await db.books.find_one({"id": transaction["book_id"]})
-        member = await db.members.find_one({"id": transaction["member_id"]})
+        book = await db.books.find_one({"id": transaction["book_id"]}, {"_id": 0})
+        member = await db.members.find_one({"id": transaction["member_id"]}, {"_id": 0})
         
         days_overdue = 0
         if transaction["status"] == "borrowed" and transaction["due_date"] < datetime.utcnow():
